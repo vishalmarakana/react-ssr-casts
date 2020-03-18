@@ -8,6 +8,7 @@
   "scripts": {
     "build:client": "webpack -p --mode production --env production --config webpack.client.js",
     "build:server": "webpack -p --mode production --config webpack.server.js",
+    "build": "concurrently \"yarn:build:client\" \"yarn:build:server\"",
     "dev": "webpack-dev-server --open --mode development --config webpack.client.js"
   },
   "dependencies": {
@@ -18,6 +19,7 @@
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
     "compression": "^1.7.4",
+    "concurrently": "^5.1.0",
     "express": "^4.17.1",
     "html-webpack-plugin": "^3.2.0",
     "react": "^16.13.0",
