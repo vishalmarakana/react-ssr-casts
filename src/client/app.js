@@ -1,8 +1,11 @@
 import React from 'react'
-import { hydrate } from 'react-dom'
+import { render, hydrate } from 'react-dom'
 
 import AppRouter from './router/Router'
 
-const wrapper = document.getElementById('wrapper')
+const dev = process.env.NODE_ENV === 'development'
+const root = document.getElementById('root')
 
-wrapper ? hydrate(<AppRouter />, wrapper) : false
+const AppRender = dev ? render : hydrate
+
+root ? AppRender(<AppRouter />, root) : false

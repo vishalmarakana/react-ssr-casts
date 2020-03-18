@@ -2,7 +2,7 @@ import express from 'express'
 import compression from 'compression'
 import { join } from 'path'
 
-import serverSideRenderer from '../utils/ssr'
+import serverSideRenderer from './utils/ssr'
 
 const server = express()
 const port = process.env.PORT || 3000

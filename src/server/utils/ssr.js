@@ -4,10 +4,10 @@ import { promisify } from 'util'
 import { readFile } from 'fs'
 import { join } from 'path'
 
-const templatePath = join(__dirname, '..', 'index.html')
+const templatePath = join(__dirname, '..', 'template.html')
 
 // pages
-import HomePage from '../client/pages/Home'
+import HomePage from '../../client/pages/Home'
 
 const readFileAsync = promisify(readFile)
 
@@ -26,7 +26,7 @@ export default async (path) => {
 
     const content = renderToString(<HomePage />)
 
-    const html = data.replace('<div id="wrapper"></div>', `<div id="wrapper">${content}</div>`)
+    const html = data.replace('<div id="root"></div>', `<div id="root">${content}</div>`)
 
     return html
 
