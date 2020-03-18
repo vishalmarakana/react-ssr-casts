@@ -1,39 +1,29 @@
 import express from 'express'
 import compression from 'compression'
 import { join } from 'path'
-import { readFile } from 'fs'
 
-import React from 'react'
-import { renderToString } from 'react-dom/server'
-
-// pages
-import HomePage from '../client/pages/Home'
+import serverSideRenderer from '../utils/ssr'
 
 const server = express()
 const port = process.env.PORT || 3000
 const publicPath = join(__dirname, '..', '..', 'public')
-const templatePath = join(__dirname, '..', 'index.html')
 
 server.use(express.static(publicPath))
 server.use(compression())
 
-server.get('/', (req, res) => {
+server.get('/', async (req, res) => {
 
-  const content = renderToString(<HomePage />)
+  try {
 
-  readFile(templatePath, 'utf8', (err, data) => {
-
-    if (err) {
-
-      res.status(500).send('Internal server error')
-
-    }
-
-    const html = data.replace('<div id="wrapper"></div>', `<div id="wrapper">${content}</div>`)
+    const html = await serverSideRenderer('/')
 
     res.send(html)
 
-  })
+  } catch (error) {
+
+    res.status(500).send('Internal server error')
+
+  }
 
 })
 
