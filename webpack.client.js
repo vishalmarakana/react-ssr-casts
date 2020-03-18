@@ -38,13 +38,15 @@ module.exports = (env) => {
 
       new CleanWebpackPlugin({
 
-        cleanOnceBeforeBuildPatterns: ['**/*', 'public'],
+        cleanOnceBeforeBuildPatterns: ['public', 'dist/index.html'],
 
       }),
 
       new HtmlWebpackPlugin({
 
         template: './src/client/index.html',
+
+        filename: '../dist/index.html',
 
         minify: {
 

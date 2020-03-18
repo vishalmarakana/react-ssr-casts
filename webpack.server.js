@@ -40,7 +40,7 @@ module.exports = merge(webpackConfig, {
 
     new CleanWebpackPlugin({
 
-      cleanOnceBeforeBuildPatterns: ['**/*', 'dist'],
+      cleanOnceBeforeBuildPatterns: ['dist', '!dist/index.html'],
 
     }),
 
