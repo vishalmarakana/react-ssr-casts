@@ -1,4 +1,5 @@
 const merge = require('webpack-merge')
+const webpackNodeExternals = require('webpack-node-externals')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { join } = require('path')
 
@@ -45,5 +46,7 @@ module.exports = merge(webpackConfig, {
     }),
 
   ],
+
+  externals: [webpackNodeExternals()],
 
 })
