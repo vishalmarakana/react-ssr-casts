@@ -46,6 +46,12 @@ module.exports = (env) => {
 
         template: './src/client/index.html',
 
+        minify: {
+
+          collapseWhitespace: isProduction,
+
+        },
+
       }),
 
     ],

@@ -1,11 +1,12 @@
 {
   "name": "react-ssr-casts",
   "version": "1.0.0",
-  "main": "server/index.js",
+  "main": "dist/server/index.js",
   "repository": "git@github.com:mgamaliel/react-ssr-casts.git",
   "author": "Martin Gamaliel Alvarez Gomez <malvarez@cespt.gob.mx>",
   "license": "MIT",
   "scripts": {
+    "build:client": "webpack -p --mode production --env production --config webpack.client.js",
     "build:server": "webpack -p --mode production --config webpack.server.js",
     "dev": "webpack-dev-server --open --mode development --config webpack.client.js"
   },

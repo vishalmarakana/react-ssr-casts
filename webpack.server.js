@@ -8,6 +8,12 @@ module.exports = merge(webpackConfig, {
 
   target: 'node',
 
+  node: {
+
+    __dirname: false,
+
+  },
+
   entry: './src/server/index.js',
 
   output: {
