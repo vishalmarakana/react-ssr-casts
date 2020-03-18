@@ -1,33 +1,30 @@
+const merge = require('webpack-merge')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { join } = require('path')
 
-const distPath = join(__dirname, 'dist')
+const webpackConfig = require('./webpack.config')
 
-const webpackServerConfig = {
+module.exports = merge(webpackConfig, {
 
   target: 'node',
 
   entry: './src/server/index.js',
 
   output: {
-    path: distPath,
-    filename: 'bundle.js',
+
+    path: join(__dirname, 'dist'),
+
+    filename: 'server/index.js',
+
     publicPath: '/',
+
   },
 
   module: {
 
     rules: [
 
-      {
-
-        test: /\.js$/,
-
-        exclude: /node_modules/,
-
-        loader: 'babel-loader'
-
-      }
+      ...webpackConfig.module.rules,
 
     ]
 
@@ -41,8 +38,6 @@ const webpackServerConfig = {
 
     }),
 
-  ]
+  ],
 
-}
-
-module.exports = webpackServerConfig
+})
