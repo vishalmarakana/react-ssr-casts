@@ -4,7 +4,7 @@ import { promisify } from 'util'
 import { readFile } from 'fs'
 import { join } from 'path'
 
-const templatePath = join(__dirname, '..', 'template.html')
+const templatePath = join(__dirname, 'template.html')
 
 // pages
 import HomePage from '../../client/pages/Home'

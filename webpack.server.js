@@ -21,7 +21,7 @@ module.exports = merge(webpackConfig, {
 
     path: join(__dirname, 'dist'),
 
-    filename: 'server/index.js',
+    filename: 'server.js',
 
     publicPath: '/',
 

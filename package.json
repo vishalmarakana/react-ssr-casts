@@ -1,7 +1,7 @@
 {
   "name": "react-ssr-casts",
   "version": "1.0.0",
-  "main": "dist/server/index.js",
+  "main": "dist/server.js",
   "repository": "git@github.com:mgamaliel/react-ssr-casts.git",
   "author": "Martin Gamaliel Alvarez Gomez <malvarez@cespt.gob.mx>",
   "license": "MIT",
@@ -10,7 +10,7 @@
     "build:server": "webpack -p --mode production --config webpack.server.js",
     "build": "concurrently \"yarn:build:client\" \"yarn:build:server\"",
     "dev": "webpack-dev-server --open --mode development --config webpack.client.js",
-    "start": "node dist/server"
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "@babel/core": "^7.8.7",

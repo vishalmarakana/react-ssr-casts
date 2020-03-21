@@ -6,7 +6,7 @@ import serverSideRenderer from './utils/ssr'
 
 const server = express()
 const port = process.env.PORT || 3000
-const publicPath = join(__dirname, '..', '..', 'public')
+const publicPath = join(__dirname, '..', 'public')
 
 server.use(express.static(publicPath))
 server.use(compression())
