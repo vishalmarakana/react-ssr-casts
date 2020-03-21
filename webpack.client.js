@@ -12,7 +12,7 @@ module.exports = (env) => {
 
   return merge(webpackConfig, {
 
-    entry: './src/client/app.js',
+    entry: './src/client/index.js',
 
     output: {
 
