@@ -1,8 +1,7 @@
 import express from 'express'
 import compression from 'compression'
 import { join } from 'path'
-
-import serverSideRenderer from './utils/ssr'
+import ssr from './utils/ssr'
 
 const server = express()
 const port = process.env.PORT || 3000
@@ -11,11 +10,11 @@ const publicPath = join(__dirname, '..', 'public')
 server.use(express.static(publicPath))
 server.use(compression())
 
-server.get('/', async (req, res) => {
+server.get('*', async (req, res) => {
 
   try {
 
-    const html = await serverSideRenderer('/')
+    const html = await ssr(req.url)
 
     res.send(html)
 
