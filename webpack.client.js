@@ -42,6 +42,8 @@ module.exports = (env) => {
 
         template: './src/template.html',
 
+        favicon: './src/favicon.png',
+
         filename: isProduction ? '../dist/template.html' : 'index.html',
 
         minify: {
