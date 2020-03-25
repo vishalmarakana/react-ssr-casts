@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchUsersAsync } from '../actions/users'
+// components
+import UserList from '../components/UserList'
 
 const UsersPage = ({ fetchUsers }) => {
 
@@ -12,9 +14,7 @@ const UsersPage = ({ fetchUsers }) => {
 
   return (
 
-    <>
-      Users Page
-    </>
+    <UserList />
 
   )
 }
