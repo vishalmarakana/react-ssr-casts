@@ -3,6 +3,7 @@ import compression from 'compression'
 import favicon from 'serve-favicon'
 import { join } from 'path'
 import ssr from './utils/ssr'
+import configureStore from '../client/store/configureStore'
 
 const server = express()
 const port = process.env.PORT || 3000
@@ -13,6 +14,8 @@ server.use(favicon(join(publicPath, 'favicon.png')))
 server.use(compression())
 
 server.get('*', async (req, res) => {
+
+  const store = configureStore()
 
   try {
 
