@@ -19,7 +19,7 @@ server.get('*', async (req, res) => {
 
   try {
 
-    const html = await ssr(req.url)
+    const html = await ssr(req.url, store)
 
     res.send(html)
 

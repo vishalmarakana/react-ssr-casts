@@ -1,6 +1,7 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
 import { promisify } from 'util'
 import { readFile } from 'fs'
 import { join } from 'path'
@@ -14,20 +15,25 @@ const readFileAsync = promisify(readFile)
  * Renders react page for server side rendering.
  * 
  * @param {String} location Page route location
+ * @param {Object} store redux store
  * 
  * @returns Returns html markup
  */
-export default async (location) => {
+export default async (location, store) => {
 
   const data = await readFileAsync(templatePath, 'utf8')
 
   const content = renderToString(
 
-    <StaticRouter location={location} context={{}}>
+    <Provider store={store}>
 
-      <App />
+      <StaticRouter location={location} context={{}}>
 
-    </StaticRouter>
+        <App />
+
+      </StaticRouter>
+
+    </Provider>
 
   )
 
