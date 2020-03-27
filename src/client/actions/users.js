@@ -15,7 +15,7 @@ export const fetchUsersAsync = () => {
 
     const response = await axios.get('/users')
 
-    dispatch(fetchUsers(response.data))
+    return dispatch(fetchUsers(response.data))
 
   }
 }

@@ -1,11 +1,12 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import { StaticRouter } from 'react-router-dom'
+import { StaticRouter, matchPath } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { promisify } from 'util'
 import { readFile } from 'fs'
 import { join } from 'path'
 import App from '../../client/app'
+import routes from '../../client/routes'
 
 const templatePath = join(__dirname, 'template.html')
 const readFileAsync = promisify(readFile)
@@ -22,6 +23,13 @@ const readFileAsync = promisify(readFile)
 export default async (location, store) => {
 
   const data = await readFileAsync(templatePath, 'utf8')
+  const currentRoute = routes.find((route) => matchPath(location, route))
+
+  if (currentRoute.component.initialData) {
+
+    await currentRoute.component.initialData(store)
+
+  }
 
   const content = renderToString(
 

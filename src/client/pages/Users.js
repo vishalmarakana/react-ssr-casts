@@ -19,6 +19,12 @@ const UsersPage = ({ fetchUsers }) => {
   )
 }
 
+UsersPage.initialData = ({ dispatch }) => {
+
+  return dispatch(fetchUsersAsync())
+
+}
+
 const mapDispatchToProps = (dispatch) => ({
 
   fetchUsers: () => dispatch(fetchUsersAsync()),
