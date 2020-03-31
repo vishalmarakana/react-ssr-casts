@@ -12,7 +12,7 @@ const composeEnhancers = isServer ? compose : (window.__REDUX_DEVTOOLS_EXTENSION
  * 
  * @returns Redux store
  */
-export default (initialState = {}) => {
+export default (initialState) => {
 
   const store = createStore(
 

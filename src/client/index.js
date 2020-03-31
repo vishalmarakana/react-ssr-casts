@@ -6,11 +6,16 @@ import configureStore from './store/configureStore'
 import App from './app'
 
 const dev = process.env.NODE_ENV === 'development'
-const AppRender = dev ? render : hydrate
+const appRender = dev ? render : hydrate
 const root = document.getElementById('root')
-const store = configureStore()
 
-AppRender(
+const preloadedState = window.__PRELOADED_STATE__
+
+delete window.__PRELOADED_STATE__
+
+const store = configureStore(preloadedState)
+
+appRender(
 
   <Provider store={store}>
 

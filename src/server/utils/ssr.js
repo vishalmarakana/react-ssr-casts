@@ -1,4 +1,5 @@
 import React from 'react'
+import serialize from 'serialize-javascript'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter, matchPath } from 'react-router-dom'
 import { Provider } from 'react-redux'
@@ -15,27 +16,26 @@ const readFileAsync = promisify(readFile)
  * 
  * Renders react page for server side rendering.
  * 
- * @param {String} location Page route location
- * @param {Object} store redux store
+ * @param {Object} ctx Current context on server with redux store
  * 
  * @returns Returns html markup
  */
-export default async (location, store) => {
+export default async (ctx) => {
 
   const data = await readFileAsync(templatePath, 'utf8')
-  const currentRoute = routes.find((route) => matchPath(location, route))
+  const currentRoute = routes.find((route) => matchPath(ctx.req.url, route))
 
-  if (currentRoute.component.initialData) {
+  if (currentRoute.component.getInitialData) {
 
-    await currentRoute.component.initialData(store)
+    await currentRoute.component.getInitialData(ctx)
 
   }
 
   const content = renderToString(
 
-    <Provider store={store}>
+    <Provider store={ctx.store}>
 
-      <StaticRouter location={location} context={{}}>
+      <StaticRouter location={ctx.req.url} context={{}}>
 
         <App />
 
@@ -45,7 +45,9 @@ export default async (location, store) => {
 
   )
 
-  const html = data.replace('<div id="root"></div>', `<div id="root">${content}</div>`)
+  const html = data
+    .replace('</head>', `<script>window.__PRELOADED_STATE__ = ${serialize(ctx.store.getState())}</script></head>`)
+    .replace('<div id="root"></div>', `<div id="root">${content}</div>`)
 
   return html
 

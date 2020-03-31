@@ -19,9 +19,9 @@ const UsersPage = ({ fetchUsers }) => {
   )
 }
 
-UsersPage.initialData = ({ dispatch }) => {
+UsersPage.getInitialData = async ({ store }) => {
 
-  return dispatch(fetchUsersAsync())
+  await store.dispatch(fetchUsersAsync())
 
 }
 
