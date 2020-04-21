@@ -1,4 +1,3 @@
-import axios from '../config/axios'
 import { FETCH_USERS } from './actionTypes'
 
 const fetchUsers = (users) => ({
@@ -11,9 +10,9 @@ const fetchUsers = (users) => ({
 
 export const fetchUsersAsync = () => {
 
-  return async (dispatch) => {
+  return async (dispatch, _, api) => {
 
-    const response = await axios.get('/users')
+    const response = await api.get('/users')
 
     return dispatch(fetchUsers(response.data))
 

@@ -1,9 +1,12 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import reducers from '../reducers'
+import axiosClientInstance from '../config/axios.client'
+import axiosServerInstance from '../config/axios.server'
 
 const isServer = typeof window === 'undefined'
 const composeEnhancers = isServer ? compose : (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose)
+const axiosInstance = isServer ? axiosServerInstance : axiosClientInstance
 
 /**
  * Creates redux store
@@ -12,7 +15,7 @@ const composeEnhancers = isServer ? compose : (window.__REDUX_DEVTOOLS_EXTENSION
  * 
  * @returns Redux store
  */
-export default (initialState) => {
+export default (initialState, req = null) => {
 
   const store = createStore(
 
@@ -20,7 +23,7 @@ export default (initialState) => {
 
     initialState,
 
-    composeEnhancers(applyMiddleware(thunk))
+    composeEnhancers(applyMiddleware(thunk.withExtraArgument(axiosInstance(req))))
 
   )
 

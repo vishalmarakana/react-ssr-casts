@@ -2,6 +2,7 @@ import express from 'express'
 import compression from 'compression'
 import favicon from 'serve-favicon'
 import { join } from 'path'
+import { createProxyMiddleware } from 'http-proxy-middleware'
 import ssr from './utils/ssr'
 import configureStore from '../client/store/configureStore'
 
@@ -9,13 +10,26 @@ const server = express()
 const port = process.env.PORT || 3000
 const publicPath = join(__dirname, '..', 'public')
 
-server.use(express.static(publicPath))
 server.use(favicon(join(publicPath, 'favicon.png')))
+server.use('/api', createProxyMiddleware({
+
+  target: 'https://react-ssr-api.herokuapp.com',
+
+  changeOrigin: true,
+
+  pathRewrite: {
+
+    '^/api': ''
+
+  }
+
+}))
+server.use(express.static(publicPath))
 server.use(compression())
 
 server.get('*', async (req, res) => {
 
-  const store = configureStore()
+  const store = configureStore({}, req)
 
   try {
 
