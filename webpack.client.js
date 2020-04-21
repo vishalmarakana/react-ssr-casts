@@ -4,10 +4,10 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { join } = require('path')
 
 const publicPath = join(__dirname, 'public')
-const webpackConfig = require('./webpack.config')
 
 module.exports = (env) => {
 
+  const webpackConfig = require('./webpack.config')(env)
   const isProduction = env === 'production'
 
   return merge(webpackConfig, {
@@ -35,6 +35,8 @@ module.exports = (env) => {
     },
 
     plugins: [
+
+      ...webpackConfig.plugins,
 
       new CleanWebpackPlugin(),
 

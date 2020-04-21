@@ -1,21 +1,39 @@
-module.exports = {
+const webpack = require('webpack')
 
-  module: {
+module.exports = (env) => {
 
-    rules: [
+  const isProduction = env === 'production'
 
-      {
+  return {
 
-        test: /\.js$/,
+    module: {
 
-        exclude: /node_modules/,
+      rules: [
 
-        loader: 'babel-loader'
+        {
 
-      }
+          test: /\.js$/,
 
-    ]
+          exclude: /node_modules/,
 
-  },
+          loader: 'babel-loader'
+
+        }
+
+      ]
+
+    },
+
+    plugins: [
+
+      new webpack.DefinePlugin({
+
+        'process.env.BASE_API_URL': JSON.stringify(isProduction ? '/api' : 'https://react-ssr-api.herokuapp.com'),
+
+      }),
+
+    ],
+
+  }
 
 }

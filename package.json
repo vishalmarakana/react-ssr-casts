@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build:client": "webpack -p --mode production --env production --config webpack.client.js",
-    "build:server": "webpack -p --mode production --config webpack.server.js",
+    "build:server": "webpack -p --mode production --env production --config webpack.server.js",
     "build": "concurrently \"yarn:build:client\" \"yarn:build:server\"",
     "dev": "webpack-dev-server --open --mode development --config webpack.client.js",
     "start": "node dist/server.js"

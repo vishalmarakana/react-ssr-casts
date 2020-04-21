@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
 import App from './app'
+import { fetchCurrentUserAsync } from './actions/auth'
 
 const dev = process.env.NODE_ENV === 'development'
 const appRender = dev ? render : hydrate
@@ -15,17 +16,27 @@ delete window.__PRELOADED_STATE__
 
 const store = configureStore(preloadedState)
 
-appRender(
+store.dispatch(fetchCurrentUserAsync())
+  .then(() => {
 
-  <Provider store={store}>
+    appRender(
 
-    <BrowserRouter>
+      <Provider store={store}>
 
-      <App />
+        <BrowserRouter>
 
-    </BrowserRouter>
+          <App />
 
-  </Provider>
+        </BrowserRouter>
 
-  , root
-)
+      </Provider>
+
+      , root
+    )
+
+  })
+  .catch((error) => {
+
+    console.log(error)
+
+  })
