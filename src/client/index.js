@@ -16,8 +16,10 @@ delete window.__PRELOADED_STATE__
 
 const store = configureStore(preloadedState)
 
-store.dispatch(fetchCurrentUserAsync())
-  .then(() => {
+Promise.resolve()
+  .then(async () => {
+
+    await store.dispatch(fetchCurrentUserAsync())
 
     appRender(
 
@@ -33,10 +35,5 @@ store.dispatch(fetchCurrentUserAsync())
 
       , root
     )
-
-  })
-  .catch((error) => {
-
-    console.log(error)
 
   })

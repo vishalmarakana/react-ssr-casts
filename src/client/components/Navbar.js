@@ -1,13 +1,32 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+// selectors
+import { selectIsAuthenticated } from '../selectors/auth'
 
 const Navbar = ({ isAuthenticated }) => {
+
+  const defaultAuthURL = `${process.env.BASE_API_URL}/auth/google`
+  const [authURL, setAuthURL] = React.useState(defaultAuthURL)
+
+  React.useEffect(() => {
+
+    if (isAuthenticated) {
+
+      setAuthURL(`${process.env.BASE_API_URL}/logout`)
+
+    } else {
+
+      setAuthURL(defaultAuthURL)
+
+    }
+
+  }, [isAuthenticated])
 
   return (
 
     <nav>
-      Page List
+
       <ul>
 
         <li>
@@ -36,25 +55,9 @@ const Navbar = ({ isAuthenticated }) => {
 
         <li>
 
-          {
-
-            isAuthenticated
-              ? (
-
-                <a href={`${process.env.BASE_API_URL}/logout`}>
-                  Logout
-                </a>
-
-              )
-              : (
-
-                <a href={`${process.env.BASE_API_URL}/auth/google`}>
-                  Login
-                </a>
-
-              )
-
-          }
+          <a href={authURL}>
+            {isAuthenticated ? "Logout" : "Login"}
+          </a>
 
         </li>
 
@@ -68,7 +71,7 @@ const Navbar = ({ isAuthenticated }) => {
 
 const mapStateToProps = (state) => ({
 
-  isAuthenticated: !!state.auth,
+  isAuthenticated: selectIsAuthenticated(state),
 
 })
 
