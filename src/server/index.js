@@ -36,15 +36,24 @@ server.use(compression())
 server.get('*', async (req, res) => {
 
   const store = configureStore({}, req)
+  const context = {}
 
   try {
 
-    const ctx = { req, res, store }
+    const ctx = { req, res, store, context }
     const html = await ssr(ctx)
+
+    if (context.notFound) {
+
+      res.status(404)
+
+    }
 
     res.send(html)
 
   } catch (error) {
+
+    console.log('ERROR: ', error.message)
 
     res.status(500).send('Internal server error')
 

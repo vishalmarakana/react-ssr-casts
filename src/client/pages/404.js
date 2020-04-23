@@ -1,11 +1,21 @@
 import React from 'react'
 
-const NotFound = () => (
+const NotFound = ({ staticContext }) => {
 
-  <div>
-    404 PAGE NOT FOUND
-  </div>
+  if (staticContext) {
 
-)
+    staticContext.notFound = true
+
+  }
+
+  return (
+
+    <div>
+      404 PAGE NOT FOUND
+    </div>
+
+  )
+
+}
 
 export default NotFound

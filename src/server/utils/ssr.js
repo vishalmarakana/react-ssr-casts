@@ -25,7 +25,7 @@ export default async (ctx) => {
   const data = await readFileAsync(templatePath, 'utf8')
   const currentRoute = routes.find((route) => matchPath(ctx.req.url, route))
 
-  if (currentRoute.component.getInitialData) {
+  if (currentRoute && currentRoute.component.getInitialData) {
 
     await currentRoute.component.getInitialData(ctx)
 
@@ -35,7 +35,7 @@ export default async (ctx) => {
 
     <Provider store={ctx.store}>
 
-      <StaticRouter location={ctx.req.url} context={{}}>
+      <StaticRouter location={ctx.req.url} context={ctx.context}>
 
         <App />
 
