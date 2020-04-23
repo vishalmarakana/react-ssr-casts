@@ -11,15 +11,21 @@ const port = process.env.PORT || 3000
 const publicPath = join(__dirname, '..', 'public')
 
 server.use(favicon(join(publicPath, 'favicon.png')))
-server.use('/api', createProxyMiddleware({
+server.use(createProxyMiddleware('/api', {
 
-  target: 'https://react-ssr-api.herokuapp.com',
+  target: 'http://react-ssr-api.herokuapp.com',
 
   changeOrigin: true,
 
   pathRewrite: {
 
-    '^/api': ''
+    '^/api': '',
+
+  },
+
+  onProxyReq(proxyReq) {
+
+    proxyReq.setHeader('x-forwarded-host', `localhost:${port}`)
 
   }
 
