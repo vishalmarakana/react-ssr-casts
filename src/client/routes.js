@@ -1,5 +1,6 @@
 import HomePage from './pages/Home'
 import UsersPage from './pages/Users'
+import NotFoundPage from './pages/404'
 
 const routes = [
 
@@ -19,7 +20,13 @@ const routes = [
 
     component: UsersPage,
 
-  }
+  },
+
+  {
+
+    component: NotFoundPage,
+
+  },
 
 ]
 
