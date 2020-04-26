@@ -1,11 +1,21 @@
 import axios from 'axios'
 
-const axiosServerInstance = (req) => axios.create({
+const axiosServerInstance = (req) => {
 
-  baseURL: 'https://react-ssr-api.herokuapp.com',
+  const cookie = req.get('cookie') || ''
 
-  headers: { authCookie: req.get('authCookie') || '' }
+  return axios.create({
 
-})
+    baseURL: 'https://react-ssr-api.herokuapp.com',
+
+    headers: {
+
+      cookie,
+
+    }
+
+  })
+
+}
 
 export default axiosServerInstance

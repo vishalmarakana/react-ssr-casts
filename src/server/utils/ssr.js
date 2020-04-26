@@ -8,6 +8,8 @@ import { readFile } from 'fs'
 import { join } from 'path'
 import App from '../../client/app'
 import routes from '../../client/routes'
+// redux actions
+import { fetchCurrentUserAsync } from '../../client/actions/auth'
 
 const templatePath = join(__dirname, 'template.html')
 const readFileAsync = promisify(readFile)
@@ -24,6 +26,9 @@ export default async (ctx) => {
 
   const data = await readFileAsync(templatePath, 'utf8')
   const currentRoute = routes.find((route) => matchPath(ctx.req.url, route))
+
+  // fetch current user if any
+  await ctx.store.dispatch(fetchCurrentUserAsync())
 
   if (currentRoute && currentRoute.component.getInitialData) {
 
