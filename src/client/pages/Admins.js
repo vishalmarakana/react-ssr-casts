@@ -1,9 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 // redux actions
 import { fetchAdminsAsync } from '../actions/admins'
 // components
 import AdminList from '../components/AdminList'
+// helpers
+import privateRoute from '../helpers/privateRoute'
 
 const AdminsPage = ({ fetchAdmins }) => {
 
@@ -27,4 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 })
 
-export default connect(undefined, mapDispatchToProps)(AdminsPage)
+export default compose(
+  connect(undefined, mapDispatchToProps),
+  privateRoute
+)(AdminsPage)
