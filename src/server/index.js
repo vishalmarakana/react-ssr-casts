@@ -43,6 +43,12 @@ server.get('*', async (req, res) => {
     const ctx = { req, res, store, context }
     const html = await ssr(ctx)
 
+    if (context.url) {
+
+      return res.redirect(307, context.url)
+
+    }
+
     if (context.notFound) {
 
       res.status(404)
