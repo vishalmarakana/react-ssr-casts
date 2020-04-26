@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import { Helmet } from 'react-helmet'
 // redux actions
 import { fetchAdminsAsync } from '../actions/admins'
 // components
@@ -18,7 +19,17 @@ const AdminsPage = ({ fetchAdmins }) => {
 
   return (
 
-    <AdminList />
+    <>
+
+      <Helmet>
+
+        <title>REACT SSR - Admin List</title>
+
+      </Helmet>
+
+      <AdminList />
+
+    </>
 
   )
 

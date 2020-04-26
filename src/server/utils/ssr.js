@@ -3,6 +3,7 @@ import serialize from 'serialize-javascript'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter, matchPath } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { promisify } from 'util'
 import { readFile } from 'fs'
 import { join } from 'path'
@@ -50,7 +51,10 @@ export default async (ctx) => {
 
   )
 
+  const helmet = Helmet.renderStatic()
+
   const html = data
+    .replace('</head>', `${helmet.title.toString()}</head>`)
     .replace('</head>', `<script>window.__PRELOADED_STATE__ = ${serialize(ctx.store.getState())}</script></head>`)
     .replace('<div id="root"></div>', `<div id="root">${content}</div>`)
 

@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Helmet } from 'react-helmet'
+// redux actions
 import { fetchUsersAsync } from '../actions/users'
 // components
 import UserList from '../components/UserList'
@@ -14,7 +16,17 @@ const UsersPage = ({ fetchUsers }) => {
 
   return (
 
-    <UserList />
+    <>
+
+      <Helmet>
+
+        <title>REACT SSR - User List</title>
+
+      </Helmet>
+
+      <UserList />
+
+    </>
 
   )
 }
