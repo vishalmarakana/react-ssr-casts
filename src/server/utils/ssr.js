@@ -24,11 +24,11 @@ const readFileAsync = promisify(readFile)
  */
 export default async (ctx) => {
 
-  const data = await readFileAsync(templatePath, 'utf8')
-  const currentRoute = routes.find((route) => matchPath(ctx.req.url, route))
-
   // fetch current user if any
   await ctx.store.dispatch(fetchCurrentUserAsync())
+
+  const data = await readFileAsync(templatePath, 'utf8')
+  const currentRoute = routes.find((route) => matchPath(ctx.req.url, route))
 
   if (currentRoute && currentRoute.component.getInitialData) {
 

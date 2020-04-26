@@ -24,6 +24,12 @@ const AdminsPage = ({ fetchAdmins }) => {
 
 }
 
+AdminsPage.getInitialData = async ({ store }) => {
+
+  await store.dispatch(fetchAdminsAsync())
+
+}
+
 const mapDispatchToProps = (dispatch) => ({
 
   fetchAdmins: () => dispatch(fetchAdminsAsync()),

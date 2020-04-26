@@ -43,12 +43,6 @@ server.get('*', async (req, res) => {
     const ctx = { req, res, store, context }
     const html = await ssr(ctx)
 
-    if (context.url) {
-
-      return res.redirect(307, context.url)
-
-    }
-
     if (context.notFound) {
 
       res.status(404)
@@ -61,7 +55,19 @@ server.get('*', async (req, res) => {
 
     console.log('ERROR: ', error.message)
 
-    res.status(500).send('Internal server error')
+    if (error.isAxiosError) {
+
+      if (error.response.status === 401) {
+
+        res.redirect(303, '/')
+
+      }
+
+    } else {
+
+      res.status(500).send('Internal server error')
+
+    }
 
   }
 
